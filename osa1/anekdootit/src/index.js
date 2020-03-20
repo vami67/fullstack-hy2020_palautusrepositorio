@@ -5,17 +5,31 @@ const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</
 
 const App = (props) => {
     const [selected, setSelected] = useState(0)
+    const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
+
+    const vote = () => {
+        //Muista, että tilan oikeaoppinen päivittäminen edellyttää olion tai taulukon kopioimista.!!
+        const copy = [...points]
+        copy[selected] += 1
+        console.log("Tilan taulukon kopio johon on tehty muutos ",copy )
+        setPoints(copy)
+    }
+
+    console.log("Tilassa oleva taulukko NYT ",points )
 
     const randomAnecdote = () => setSelected(Math.floor(Math.random() * anecdotes.length))
 
     return (
         <div>
             <p>{props.anecdotes[selected]}</p>
-            <p>{selected}</p>
-            <Button handleClick={randomAnecdote} text='next anecdote' />
+            <p>has {points[selected]} votes</p>
+            <p><Button handleClick={vote} text='vote' /></p>
+            <p><Button handleClick={randomAnecdote} text='next anecdote' /></p>
         </div>
     )
 }
+
+
 
 const anecdotes = [
     'If it hurts, do it more often',
