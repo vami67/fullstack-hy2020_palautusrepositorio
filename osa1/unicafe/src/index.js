@@ -3,18 +3,22 @@ import ReactDOM from 'react-dom'
 
 const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</button>
 
-const StatisticLine = ({ text, value }) => <p>{text} {value}</p>
+const StatisticLine = ({ text, value }) => <tr><td>{text}</td><td>{value}</td></tr>
 
 const Statistics = ({ good, neutral, bad }) => {
     if ((good + neutral + bad) > 0) {
         return (<>
             <h2>statistics</h2>
-            <StatisticLine text="good" value={good} />
-            <StatisticLine text="neutral" value={neutral} />
-            <StatisticLine text="bad" value={bad} />
-            <StatisticLine text="all" value={good + neutral + bad} />
-            <StatisticLine text="average" value={(good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad)} />
-            <StatisticLine text="positive" value={((good * 1) / (good + neutral + bad)) * 100 + ' %'} />
+            <table>
+                <tbody>
+                    <StatisticLine text="good" value={good} />
+                    <StatisticLine text="neutral" value={neutral} />
+                    <StatisticLine text="bad" value={bad} />
+                    <StatisticLine text="all" value={good + neutral + bad} />
+                    <StatisticLine text="average" value={(good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad)} />
+                    <StatisticLine text="positive" value={((good * 1) / (good + neutral + bad)) * 100 + ' %'} />
+                </tbody>
+            </table>
         </>)
     }
     return <p>No feedback given</p>
