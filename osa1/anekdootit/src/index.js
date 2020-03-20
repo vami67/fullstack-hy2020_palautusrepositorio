@@ -11,11 +11,11 @@ const App = (props) => {
         //Muista, että tilan oikeaoppinen päivittäminen edellyttää olion tai taulukon kopioimista.!!
         const copy = [...points]
         copy[selected] += 1
-        console.log("Tilan taulukon kopio johon on tehty muutos ",copy )
+        console.log("Tilan taulukon kopio johon on tehty muutos ", copy)
         setPoints(copy)
     }
 
-    console.log("Tilassa oleva taulukko NYT ",points )
+    console.log("Tilassa oleva taulukko NYT ", points)
 
     const randomAnecdote = () => setSelected(Math.floor(Math.random() * anecdotes.length))
 
@@ -28,8 +28,8 @@ const App = (props) => {
             <p><Button handleClick={randomAnecdote} text='next anecdote' /></p>
 
             <h2>Anecdote with most votes</h2>
-            {Math.max(...points)}
             <p>{props.anecdotes[points.indexOf(Math.max(...points))]}</p>
+            <p>has {Math.max(...points)} votes</p>
         </div>
     )
 }
