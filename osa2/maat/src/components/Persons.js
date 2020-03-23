@@ -10,7 +10,6 @@ const Persons = ({ persons }) => {
   }
 
   if (persons.length < 10 && persons.length > 1) {
-    console.log(persons.length)
     return (
       <ul>
         {persons.map((person) =>

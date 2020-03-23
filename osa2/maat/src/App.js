@@ -26,9 +26,11 @@ const App = () => {
 
   return (
     <div>
+      
       <Filter
         handleSearchNameChange={handleSearchNameChange}
       />
+
       <Persons
         persons={personsToShow}
       />
