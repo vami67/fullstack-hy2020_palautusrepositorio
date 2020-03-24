@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
@@ -50,6 +51,15 @@ const App = () => {
     setNewNumber('')
   }
 
+  const removePerson = person => {
+    if(window.confirm(`Delete ${person.name} ?`)){
+      personService
+      .remove(person.id)
+      .then(
+        setPersons(persons.filter(n => n.id !== person.id))
+      )
+    }
+  }
 
   return (
     <div>
@@ -66,8 +76,10 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
+
       <Persons
         persons={personsToShow}
+        removePerson={removePerson}
       />
     </div>
   )
