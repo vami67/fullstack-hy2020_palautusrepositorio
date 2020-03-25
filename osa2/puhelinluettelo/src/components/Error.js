@@ -1,25 +1,25 @@
 import React from 'react'
 
-const nonErrorStyle = {
-    color: 'green',
+const errorStyle = {
+    color: 'red',
     background: 'lightgrey',
-    fontSize: 16,
+    fontSize: 20,
     borderStyle: 'solid',
     borderRadius: 5,
     padding: 10,
     marginBottom: 10
 }
 
-const Notification = ({ message }) => {
+const Error = ({ message }) => {
 
     if (message === null) {
         return null
     }
     return (
-        <div style={nonErrorStyle}>
+        <div style={errorStyle}>
             {message}
         </div>
     )
 }
 
-export default Notification
+export default Error

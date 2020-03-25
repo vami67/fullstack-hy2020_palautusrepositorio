@@ -5,12 +5,14 @@ import Persons from './components/Persons'
 import Filter from './components/Filter'
 import personService from './services/persons'
 import Notification from './components/Notification'
+import Error from './components/Error'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
+  const [message, setMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
@@ -34,12 +36,21 @@ const App = () => {
   }
 
   const showNotification = (message) => {
+    setMessage(
+      message
+    )
+    setTimeout(() => {
+      setMessage(null)
+    }, 2000)
+  }
+
+  const showError = (message) => {
     setErrorMessage(
       message
     )
     setTimeout(() => {
       setErrorMessage(null)
-    }, 2000)
+    }, 5000)
   }
 
   const addPerson = (event) => {
@@ -51,7 +62,7 @@ const App = () => {
     let existsPerson = persons.find((person) => person.name === personObject.name)
 
     if (existsPerson) {
-      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+      if (window.confirm(`${existsPerson.name} is already added to phonebook, replace the old number with a new one?`)) {
         personService
           .update(existsPerson.id, personObject)
           .then(
@@ -60,6 +71,9 @@ const App = () => {
               showNotification(`${returnedPerson.name} updated`)
             }
           )
+          .catch(error => {
+            showError(`the note '${existsPerson.name}' was already deleted from server`)
+          })
       }
     } else {
       personService
@@ -89,7 +103,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={errorMessage} />
+      <Notification message={message} />
+      <Error message={errorMessage} />
       <Filter
         handleSearchNameChange={handleSearchNameChange}
       />

@@ -1,14 +1,3 @@
 {
-  "persons": [
-    {
-      "name": "Juha Tauriainen",
-      "number": "3123213",
-      "id": 11
-    },
-    {
-      "name": "Sika",
-      "number": "12355",
-      "id": 12
-    }
-  ]
+  "persons": []
 }
