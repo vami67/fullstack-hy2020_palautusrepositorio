@@ -2,8 +2,13 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 
+morgan.token('body', function(req, res) {
+    return JSON.stringify(req.body)
+    //return `${JSON.stringify(req.body)}`
+});
+
 app.use(express.json())
-app.use(morgan('tiny'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 let persons =
     [
@@ -55,31 +60,31 @@ app.get('/info', (req, res) => {
 })
 
 
-const generateId = (min,max) => {
+const generateId = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+}
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
-    
+
     if (!body.name || !body.number) {
         return res.status(400).json({
             error: 'name or number missing'
         })
     }
-    
+
     if (persons.find(person => person.name.toLowerCase() === body.name.toLowerCase())) {
         return res.status(400).json({
             error: 'name must be unique'
         })
     }
-    
+
     const person = {
         name: body.name,
         number: body.number,
-        id: generateId(5,100),
+        id: generateId(5, 100),
     }
     persons = persons.concat(person)
     res.json(person)
