@@ -41,7 +41,6 @@ app.get('/api/persons/:id', (req, res) => {
 })
 
 app.delete('/api/persons/:id', (req, res) => {
-    console.log("fjsdklfjdslfj")
     const id = Number(req.params.id)
     persons = persons.filter(person => person.id !== id)
 
@@ -62,11 +61,18 @@ const generateId = (min,max) => {
 app.post('/api/persons', (req, res) => {
     const body = req.body
     
-    if (!body.name) {
+    if (!body.name || !body.number) {
         return res.status(400).json({
-            error: 'content missing'
+            error: 'name or number missing'
         })
     }
+    
+    if (persons.find(person => person.name.toLowerCase() === body.name.toLowerCase())) {
+        return res.status(400).json({
+            error: 'name must be unique'
+        })
+    }
+    
     const person = {
         name: body.name,
         number: body.number,
