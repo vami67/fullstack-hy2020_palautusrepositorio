@@ -3,3 +3,13 @@ http://localhost:3001/api/persons
 DELETE http://localhost:3001/api/persons/2
 ###
 http://localhost:3001/api/persons/2
+###
+POST http://localhost:3001/api/persons HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Lisäys",
+    "number": "432432423432"
+}
+###
+http://localhost:3001/info
